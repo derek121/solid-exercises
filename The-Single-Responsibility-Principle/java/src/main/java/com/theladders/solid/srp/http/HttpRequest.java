@@ -4,6 +4,10 @@ import java.util.Map;
 
 public class HttpRequest
 {
+  public static final String JOB_ID = "jobId";
+  public static final String WHICH_RESUME = "whichResume";
+  public static final String MAKE_RESUME_ACTIVE = "makeResumeActive";
+
   private final HttpSession session;
   private final Map<String, String> parameters;
 

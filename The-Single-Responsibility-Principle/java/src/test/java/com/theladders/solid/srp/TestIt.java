@@ -51,7 +51,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
+    parameters.put(HttpRequest.JOB_ID, "5");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -69,7 +69,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
+    parameters.put(HttpRequest.JOB_ID, "5");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -87,8 +87,8 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
-    parameters.put("whichResume", "existing");
+    parameters.put(HttpRequest.JOB_ID, "5");
+    parameters.put(HttpRequest.WHICH_RESUME, "existing");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -106,7 +106,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId", String.valueOf(INVALID_JOB_ID));
+    parameters.put(HttpRequest.JOB_ID, String.valueOf(INVALID_JOB_ID));
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -124,7 +124,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId", "5");
+    parameters.put(HttpRequest.JOB_ID, "5");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -142,7 +142,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","15");
+    parameters.put(HttpRequest.JOB_ID, "15");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -160,7 +160,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
+    parameters.put(HttpRequest.JOB_ID, "5");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -178,7 +178,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
+    parameters.put(HttpRequest.JOB_ID, "5");
 
     HttpRequest request = new HttpRequest(session, parameters);
 
@@ -196,7 +196,7 @@ public class TestIt
     HttpSession session = new HttpSession(JOBSEEKER);
 
     Map<String, String> parameters = new HashMap<>();
-    parameters.put("jobId","5");
+    parameters.put(HttpRequest.JOB_ID, "5");
     parameters.put("makeResumeActive", "yes");
 
     HttpRequest request = new HttpRequest(session, parameters);

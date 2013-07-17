@@ -49,7 +49,7 @@ public class ApplyController
     Jobseeker jobseeker = request.getSession().getJobseeker();
     JobseekerProfile profile = jobseekerProfileManager.getJobSeekerProfile(jobseeker);
 
-    String jobIdString = request.getParameter("jobId");
+    String jobIdString = request.getParameter(HttpRequest.JOB_ID);
     int jobId = Integer.parseInt(jobIdString);
 
     Job job = jobSearchService.getJob(jobId);
@@ -130,11 +130,11 @@ public class ApplyController
   {
     Resume resume;
 
-    if (!"existing".equals(request.getParameter("whichResume")))
+    if (!"existing".equals(request.getParameter(HttpRequest.WHICH_RESUME)))
     {
       resume = resumeManager.saveResume(jobseeker, newResumeFileName);
 
-      if (resume != null && "yes".equals(request.getParameter("makeResumeActive")))
+      if (resume != null && "yes".equals(request.getParameter(HttpRequest.MAKE_RESUME_ACTIVE)))
       {
         myResumeManager.saveAsActive(jobseeker, resume);
       }
@@ -150,7 +150,7 @@ public class ApplyController
   private static void provideInvalidJobView(HttpResponse response, int jobId)
   {
     Map<String, Object> model = new HashMap<>();
-    model.put("jobId", jobId);
+    model.put(HttpRequest.JOB_ID, jobId);
 
     Result result = new Result("invalidJob", model);
     response.setResult(result);
