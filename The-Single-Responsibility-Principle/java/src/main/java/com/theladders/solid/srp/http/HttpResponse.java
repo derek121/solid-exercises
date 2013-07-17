@@ -6,7 +6,7 @@ public class HttpResponse
 {
   private Result result;
 
-  public String getResultType()
+  public Result.Type getResultType()
   {
     return result.getType();
   }

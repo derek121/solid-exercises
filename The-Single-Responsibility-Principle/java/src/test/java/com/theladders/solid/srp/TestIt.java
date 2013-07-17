@@ -59,7 +59,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("success", response.getResultType());
+    assertEquals(Result.Type.SUCCESS, response.getResultType());
   }
 
   @Test
@@ -77,7 +77,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("success", response.getResultType());
+    assertEquals(Result.Type.SUCCESS, response.getResultType());
   }
 
   @Test
@@ -96,7 +96,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("success", response.getResultType());
+    assertEquals(Result.Type.SUCCESS, response.getResultType());
   }
 
   @Test
@@ -114,7 +114,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("invalidJob", response.getResultType());
+    assertEquals(Result.Type.INVALID_JOB, response.getResultType());
   }
 
   @Test
@@ -132,7 +132,7 @@ public class TestIt
 
     controller.handle(request, response, null);
 
-    assertEquals("error", response.getResultType());
+    assertEquals(Result.Type.ERROR, response.getResultType());
   }
 
   @Test
@@ -150,7 +150,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("error", response.getResultType());
+    assertEquals(Result.Type.ERROR, response.getResultType());
   }
 
   @Test
@@ -168,7 +168,7 @@ public class TestIt
 
     controller.handle(request, response, SHARED_RESUME_NAME);
 
-    assertEquals("completeResumePlease", response.getResultType());
+    assertEquals(Result.Type.COMPLETE_RESUME_PLEASE, response.getResultType());
   }
 
   @Test

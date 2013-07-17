@@ -23,11 +23,15 @@ import com.theladders.solid.srp.resume.ResumeManager;
 
 public class ApplyController
 {
+  private static final String JOB_ID = "jobId";
+  private static final String JOB_TITLE = "jobTitle";
+
   private final JobseekerProfileManager jobseekerProfileManager;
   private final JobSearchService        jobSearchService;
   private final JobApplicationSystem    jobApplicationSystem;
   private final ResumeManager           resumeManager;
   private final MyResumeManager         myResumeManager;
+
 
   public ApplyController(JobseekerProfileManager jobseekerProfileManager,
                          JobSearchService jobSearchService,
@@ -41,6 +45,7 @@ public class ApplyController
     this.resumeManager = resumeManager;
     this.myResumeManager = myResumeManager;
   }
+
 
   public HttpResponse handle(HttpRequest request,
                              HttpResponse response,
@@ -75,8 +80,8 @@ public class ApplyController
       return response;
     }
 
-    model.put("jobId", job.getJobId());
-    model.put("jobTitle", job.getTitle());
+    model.put(JOB_ID, job.getJobId());
+    model.put(JOB_TITLE, job.getTitle());
 
     if (!jobseeker.isPremium() && (profile.getStatus().equals(ProfileStatus.INCOMPLETE) ||
                                    profile.getStatus().equals(ProfileStatus.NO_PROFILE) ||
@@ -93,19 +98,19 @@ public class ApplyController
 
   private static void provideApplySuccessView(HttpResponse response, Map<String, Object> model)
   {
-    Result result = new Result("success", model);
+    Result result = new Result(Result.Type.SUCCESS, model);
     response.setResult(result);
   }
 
   private static void provideResumeCompletionView(HttpResponse response, Map<String, Object> model)
   {
-    Result result = new Result("completeResumePlease", model);
+    Result result = new Result(Result.Type.COMPLETE_RESUME_PLEASE, model);
     response.setResult(result);
   }
 
   private static void provideErrorView(HttpResponse response, List<String> errList, Map<String, Object> model)
   {
-   Result result = new Result("error", model, errList);
+   Result result = new Result(Result.Type.ERROR, model, errList);
    response.setResult(result);
   }
 
@@ -152,7 +157,7 @@ public class ApplyController
     Map<String, Object> model = new HashMap<>();
     model.put(HttpRequest.JOB_ID, jobId);
 
-    Result result = new Result("invalidJob", model);
+    Result result = new Result(Result.Type.INVALID_JOB, model);
     response.setResult(result);
   }
 }

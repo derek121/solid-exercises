@@ -5,11 +5,13 @@ import java.util.Map;
 
 public class Result
 {
-  private final String type;
+  public enum Type { SUCCESS, COMPLETE_RESUME_PLEASE, ERROR, INVALID_JOB }
+
+  private final Type type;
   private final Map<String, Object> model;
   private final List<String> errorList;
 
-  public Result(String type,
+  public Result(Type type,
                 Map<String, Object> model)
   {
     this.type  = type;
@@ -17,7 +19,7 @@ public class Result
     this.errorList = null;
   }
 
-  public Result(String type,
+  public Result(Type type,
                 Map<String, Object> model,
                 List<String> errList)
   {
@@ -26,7 +28,7 @@ public class Result
     this.errorList = errList;
   }
 
-  public String getType()
+  public Type getType()
   {
     return type;
   }
