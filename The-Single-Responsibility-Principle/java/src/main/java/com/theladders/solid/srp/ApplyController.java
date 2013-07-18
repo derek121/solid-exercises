@@ -72,8 +72,6 @@ public class ApplyController
                              Jobseeker jobseeker,
                              Job job)
   {
-    // TODO: move provide.*View() elsewhere?
-
     try
     {
       apply(request, jobseeker, job, origFileName);
@@ -84,6 +82,7 @@ public class ApplyController
       return response;
     }
 
+    // TODO: move this out of apply()?
     // TODO: do the error view in ProvideView?
     new ProvideView(response, jobId, jobseeker, jobseekerProfileManager.getJobSeekerProfile(jobseeker), job).provide();
     return response;
