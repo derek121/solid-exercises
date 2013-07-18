@@ -9,26 +9,21 @@ import com.theladders.solid.srp.http.HttpRequest;
 import com.theladders.solid.srp.http.HttpResponse;
 import com.theladders.solid.srp.job.Job;
 import com.theladders.solid.srp.job.JobSearchService;
-import com.theladders.solid.srp.job.application.ApplicationFailureException;
-import com.theladders.solid.srp.job.application.JobApplicationResult;
 import com.theladders.solid.srp.job.application.JobApplicationSystem;
-import com.theladders.solid.srp.job.application.UnprocessedApplication;
-import com.theladders.solid.srp.jobseeker.JobseekerProfileManager;
 import com.theladders.solid.srp.jobseeker.Jobseeker;
+import com.theladders.solid.srp.jobseeker.JobseekerProfileManager;
 import com.theladders.solid.srp.resume.MyResumeManager;
-import com.theladders.solid.srp.resume.Resume;
 import com.theladders.solid.srp.resume.ResumeManager;
 
 public class ApplyController
 {
-  public static final String JOB_ID = "jobId";
+  public static final String JOB_ID    = "jobId";
   public static final String JOB_TITLE = "jobTitle";
 
   private final JobseekerProfileManager jobseekerProfileManager;
   private final JobSearchService        jobSearchService;
-  private final JobApplicationSystem    jobApplicationSystem;
-  private final ResumeManager           resumeManager;
-  private final MyResumeManager         myResumeManager;
+
+  private final Applier applier;
 
 
   public ApplyController(JobseekerProfileManager jobseekerProfileManager,
@@ -39,9 +34,8 @@ public class ApplyController
   {
     this.jobseekerProfileManager = jobseekerProfileManager;
     this.jobSearchService = jobSearchService;
-    this.jobApplicationSystem = jobApplicationSystem;
-    this.resumeManager = resumeManager;
-    this.myResumeManager = myResumeManager;
+
+    this.applier = new Applier(jobApplicationSystem, resumeManager, myResumeManager);
   }
 
 
@@ -74,7 +68,7 @@ public class ApplyController
   {
     try
     {
-      apply(request, jobseeker, job, origFileName);
+      applier.apply(request, job, origFileName);
     }
     catch (Exception e)
     {
@@ -109,51 +103,16 @@ public class ApplyController
   }
 
 
-  private static void provideErrorView(HttpResponse response, List<String> errList)
+  private static void provideErrorView(HttpResponse response,
+                                       List<String> errList)
   {
-   Result result = new Result(Result.Type.ERROR, new HashMap<String, Object>(), errList);
-   response.setResult(result);
+    Result result = new Result(Result.Type.ERROR, new HashMap<String, Object>(), errList);
+    response.setResult(result);
   }
 
-  private void apply(HttpRequest request,
-                     Jobseeker jobseeker,
-                     Job job,
-                     String fileName)
-  {
-    Resume resume = saveNewOrRetrieveExistingResume(fileName,jobseeker, request);
-    UnprocessedApplication application = new UnprocessedApplication(jobseeker, job, resume);
-    JobApplicationResult applicationResult = jobApplicationSystem.apply(application);
 
-    if (applicationResult.failure())
-    {
-      throw new ApplicationFailureException(applicationResult.toString());
-    }
-  }
-
-  private Resume saveNewOrRetrieveExistingResume(String newResumeFileName,
-                                                 Jobseeker jobseeker,
-                                                 HttpRequest request)
-  {
-    Resume resume;
-
-    if (!"existing".equals(request.getParameter(HttpRequest.WHICH_RESUME)))
-    {
-      resume = resumeManager.saveResume(jobseeker, newResumeFileName);
-
-      if (resume != null && "yes".equals(request.getParameter(HttpRequest.MAKE_RESUME_ACTIVE)))
-      {
-        myResumeManager.saveAsActive(jobseeker, resume);
-      }
-    }
-    else
-    {
-      resume = myResumeManager.getActiveResume(jobseeker.getId());
-    }
-
-    return resume;
-  }
-
-  private static void provideInvalidJobView(HttpResponse response, int jobId)
+  private static void provideInvalidJobView(HttpResponse response,
+                                            int jobId)
   {
     Map<String, Object> model = new HashMap<>();
     model.put(HttpRequest.JOB_ID, jobId);
