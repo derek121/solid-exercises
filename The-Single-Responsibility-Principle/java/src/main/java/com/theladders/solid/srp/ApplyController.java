@@ -58,10 +58,12 @@ public class ApplyController
       return response;
     }
 
-    Jobseeker jobseeker = request.getSession().getJobseeker();
-    Job job = getJob(jobId);
-
-    return apply(request, response, origFileName, jobId, jobseeker, job);
+    return apply(request,
+                 response,
+                 origFileName,
+                 jobId,
+                 request.getSession().getJobseeker(),
+                 getJob(jobId));
   }
 
 
@@ -82,9 +84,9 @@ public class ApplyController
       return response;
     }
 
-    // TODO: move this out of apply()?
-    // TODO: do the error view in ProvideView?
-    new ProvideView(response, jobId, jobseeker, jobseekerProfileManager.getJobSeekerProfile(jobseeker), job).provide();
+    ResponseView responseView = ResponseView.create(
+            jobseeker, jobseekerProfileManager.getJobSeekerProfile(jobseeker).getStatus());
+    responseView.computeResponse(response);
     return response;
   }
 
