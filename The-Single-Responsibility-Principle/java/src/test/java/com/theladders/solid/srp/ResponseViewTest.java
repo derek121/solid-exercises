@@ -20,7 +20,7 @@ public class ResponseViewTest
 
     ResponseView responseView = ResponseView.create(jobseeker, profileStatus);
     responseView.computeResponse(httpResponse);
-    assertEquals(Result.Type.SUCCESS, httpResponse.getResultType());
+    assertEquals(Result.Type.COMPLETE_RESUME_PLEASE, httpResponse.getResultType());
 
   }
 
@@ -34,7 +34,7 @@ public class ResponseViewTest
 
     ResponseView responseView = ResponseView.create(jobseeker, profileStatus);
     responseView.computeResponse(httpResponse);
-    assertEquals(Result.Type.COMPLETE_RESUME_PLEASE, httpResponse.getResultType());
+    assertEquals(Result.Type.SUCCESS, httpResponse.getResultType());
 
   }
 
@@ -48,7 +48,7 @@ public class ResponseViewTest
 
     ResponseView responseView = ResponseView.create(jobseeker, profileStatus);
     responseView.computeResponse(httpResponse);
-    assertEquals(Result.Type.COMPLETE_RESUME_PLEASE, httpResponse.getResultType());
+    assertEquals(Result.Type.SUCCESS, httpResponse.getResultType());
 
   }
 
