@@ -1,6 +1,5 @@
 package com.theladders.solid.srp;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +23,8 @@ import com.theladders.solid.srp.resume.ResumeManager;
 
 public class ApplyController
 {
-  private static final String JOB_ID = "jobId";
-  private static final String JOB_TITLE = "jobTitle";
+  public static final String JOB_ID = "jobId";
+  public static final String JOB_TITLE = "jobTitle";
 
   private final JobseekerProfileManager jobseekerProfileManager;
   private final JobSearchService        jobSearchService;
@@ -61,6 +60,20 @@ public class ApplyController
 
     Jobseeker jobseeker = request.getSession().getJobseeker();
     Job job = getJob(jobId);
+
+    return apply(request, response, origFileName, jobId, jobseeker, job);
+  }
+
+
+  private HttpResponse apply(HttpRequest request,
+                             HttpResponse response,
+                             String origFileName,
+                             int jobId,
+                             Jobseeker jobseeker,
+                             Job job)
+  {
+    // TODO: move provide.*View() elsewhere?
+
     try
     {
       apply(request, jobseeker, job, origFileName);
@@ -71,32 +84,9 @@ public class ApplyController
       return response;
     }
 
-    provideResponseView(response, jobId, jobseeker, job);
+    // TODO: do the error view in ProvideView?
+    new ProvideView(response, jobId, jobseeker, jobseekerProfileManager.getJobSeekerProfile(jobseeker), job).provide();
     return response;
-  }
-
-
-  private void provideResponseView(HttpResponse response,
-                                      int jobId,
-                                      Jobseeker jobseeker,
-                                      Job job)
-  {
-    Map<String, Object> model = new HashMap<>();
-    model.put(JOB_ID, jobId);
-    model.put(JOB_TITLE, job.getTitle());
-
-    // TODO: refactor the if/else
-    JobseekerProfile profile = jobseekerProfileManager.getJobSeekerProfile(jobseeker);
-    if (!jobseeker.isPremium() && (profile.getStatus().equals(ProfileStatus.INCOMPLETE) ||
-                                   profile.getStatus().equals(ProfileStatus.NO_PROFILE) ||
-                                   profile.getStatus().equals(ProfileStatus.REMOVED)))
-    {
-      provideResumeCompletionView(response, model);
-    }
-    else
-    {
-      provideApplySuccessView(response, model);
-    }
   }
 
 
@@ -119,18 +109,6 @@ public class ApplyController
     return job;
   }
 
-
-  private static void provideApplySuccessView(HttpResponse response, Map<String, Object> model)
-  {
-    Result result = new Result(Result.Type.SUCCESS, model);
-    response.setResult(result);
-  }
-
-  private static void provideResumeCompletionView(HttpResponse response, Map<String, Object> model)
-  {
-    Result result = new Result(Result.Type.COMPLETE_RESUME_PLEASE, model);
-    response.setResult(result);
-  }
 
   private static void provideErrorView(HttpResponse response, List<String> errList)
   {
