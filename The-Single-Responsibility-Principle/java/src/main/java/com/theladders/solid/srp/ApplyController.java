@@ -1,6 +1,7 @@
 package com.theladders.solid.srp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,50 +52,73 @@ public class ApplyController
                              HttpResponse response,
                              String origFileName)
   {
-    Jobseeker jobseeker = request.getSession().getJobseeker();
-    JobseekerProfile profile = jobseekerProfileManager.getJobSeekerProfile(jobseeker);
-
-    String jobIdString = request.getParameter(HttpRequest.JOB_ID);
-    int jobId = Integer.parseInt(jobIdString);
-
-    Job job = jobSearchService.getJob(jobId);
-
-    if (job == null)
+    int jobId = getJobId(request);
+    if (!validateJobId(jobId))
     {
       provideInvalidJobView(response, jobId);
       return response;
     }
 
-    Map<String, Object> model = new HashMap<>();
-
-    List<String> errList = new ArrayList<>();
-
+    Jobseeker jobseeker = request.getSession().getJobseeker();
+    Job job = getJob(jobId);
     try
     {
       apply(request, jobseeker, job, origFileName);
     }
     catch (Exception e)
     {
-      errList.add("We could not process your application.");
-      provideErrorView(response, errList, model);
+      provideErrorView(response, Arrays.asList("We could not process your application."));
       return response;
     }
 
-    model.put(JOB_ID, job.getJobId());
+    provideResponseView(response, jobId, jobseeker, job);
+    return response;
+  }
+
+
+  private void provideResponseView(HttpResponse response,
+                                      int jobId,
+                                      Jobseeker jobseeker,
+                                      Job job)
+  {
+    Map<String, Object> model = new HashMap<>();
+    model.put(JOB_ID, jobId);
     model.put(JOB_TITLE, job.getTitle());
 
+    // TODO: refactor the if/else
+    JobseekerProfile profile = jobseekerProfileManager.getJobSeekerProfile(jobseeker);
     if (!jobseeker.isPremium() && (profile.getStatus().equals(ProfileStatus.INCOMPLETE) ||
                                    profile.getStatus().equals(ProfileStatus.NO_PROFILE) ||
                                    profile.getStatus().equals(ProfileStatus.REMOVED)))
     {
       provideResumeCompletionView(response, model);
-      return response;
     }
-
-    provideApplySuccessView(response, model);
-
-    return response;
+    else
+    {
+      provideApplySuccessView(response, model);
+    }
   }
+
+
+  private boolean validateJobId(int jobId)
+  {
+    return (jobSearchService.getJob(jobId) != null);
+  }
+
+
+  private int getJobId(HttpRequest request)
+  {
+    String jobIdString = request.getParameter(HttpRequest.JOB_ID);
+    return Integer.parseInt(jobIdString);
+  }
+
+
+  private Job getJob(int jobId)
+  {
+    Job job = jobSearchService.getJob(jobId);
+    return job;
+  }
+
 
   private static void provideApplySuccessView(HttpResponse response, Map<String, Object> model)
   {
@@ -108,9 +132,9 @@ public class ApplyController
     response.setResult(result);
   }
 
-  private static void provideErrorView(HttpResponse response, List<String> errList, Map<String, Object> model)
+  private static void provideErrorView(HttpResponse response, List<String> errList)
   {
-   Result result = new Result(Result.Type.ERROR, model, errList);
+   Result result = new Result(Result.Type.ERROR, new HashMap<String, Object>(), errList);
    response.setResult(result);
   }
 
