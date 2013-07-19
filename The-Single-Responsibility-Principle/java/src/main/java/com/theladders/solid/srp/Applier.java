@@ -34,6 +34,7 @@ public class Applier
   {
     Jobseeker jobseeker = httpRequest.getSession().getJobseeker();
     Resume resume = saveNewOrRetrieveExistingResume(filename, jobseeker, httpRequest);
+
     UnprocessedApplication application = new UnprocessedApplication(jobseeker, job, resume);
     JobApplicationResult applicationResult = jobApplicationSystem.apply(application);
 
@@ -50,6 +51,7 @@ public class Applier
   {
     Resume resume;
 
+    // TODO: replace hardcoded strings
     if (!"existing".equals(request.getParameter(HttpRequest.WHICH_RESUME)))
     {
       resume = resumeManager.saveResume(jobseeker, newResumeFileName);
