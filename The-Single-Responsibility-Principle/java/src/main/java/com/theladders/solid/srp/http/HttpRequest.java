@@ -8,6 +8,9 @@ public class HttpRequest
   public static final String WHICH_RESUME = "whichResume";
   public static final String MAKE_RESUME_ACTIVE = "makeResumeActive";
 
+  public static final String WHICH_RESUME_EXISTING = "existing";
+  public static final String MAKE_RESUME_ACTIVE_YES = "yes";
+
   private final HttpSession session;
   private final Map<String, String> parameters;
 

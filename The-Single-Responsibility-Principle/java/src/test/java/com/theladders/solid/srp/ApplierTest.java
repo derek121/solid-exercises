@@ -55,7 +55,7 @@ public class ApplierTest
   @Test
   public void testApplyWithValidApplication()
   {
-    applier.apply(httpRequest, job, filename);
+    applier.apply(jobseeker, job, filename, null, null);
     assertTrue(jobApplicationRepository.applicationExistsFor(jobseeker, job));
   }
 
@@ -63,10 +63,10 @@ public class ApplierTest
   @Test(expected = ApplicationFailureException.class)
   public void testApplyWithValidApplicationAgain()
   {
-    applier.apply(httpRequest, job, filename);
+    applier.apply(jobseeker, job, filename, null, null);
     assertTrue(jobApplicationRepository.applicationExistsFor(jobseeker, job));
 
-    applier.apply(httpRequest, job, filename);
+    applier.apply(jobseeker, job, filename, null, null);
   }
 
 

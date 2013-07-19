@@ -28,12 +28,13 @@ public class Applier
   }
 
 
-  public void apply(HttpRequest httpRequest,
+  public void apply(Jobseeker jobseeker,
                     Job job,
-                    String filename)
+                    String filename,
+                    String whichResume,
+                    String makeResumeActive)
   {
-    Jobseeker jobseeker = httpRequest.getSession().getJobseeker();
-    Resume resume = saveNewOrRetrieveExistingResume(filename, jobseeker, httpRequest);
+    Resume resume = saveNewOrRetrieveExistingResume(filename, jobseeker, whichResume, makeResumeActive);
 
     UnprocessedApplication application = new UnprocessedApplication(jobseeker, job, resume);
     JobApplicationResult applicationResult = jobApplicationSystem.apply(application);
@@ -47,16 +48,17 @@ public class Applier
 
   private Resume saveNewOrRetrieveExistingResume(String newResumeFileName,
                                                  Jobseeker jobseeker,
-                                                 HttpRequest request)
+                                                 String whichResume,
+                                                 String makeResumeActive)
   {
     Resume resume;
 
     // TODO: replace hardcoded strings
-    if (!"existing".equals(request.getParameter(HttpRequest.WHICH_RESUME)))
+    if (!"existing".equals(whichResume))
     {
       resume = resumeManager.saveResume(jobseeker, newResumeFileName);
 
-      if (resume != null && "yes".equals(request.getParameter(HttpRequest.MAKE_RESUME_ACTIVE)))
+      if (resume != null && "yes".equals(makeResumeActive))
       {
         myResumeManager.saveAsActive(jobseeker, resume);
       }

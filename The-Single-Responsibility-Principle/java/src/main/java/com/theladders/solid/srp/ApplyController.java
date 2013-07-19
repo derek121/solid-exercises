@@ -13,6 +13,7 @@ import com.theladders.solid.srp.job.application.JobApplicationSystem;
 import com.theladders.solid.srp.jobseeker.Jobseeker;
 import com.theladders.solid.srp.jobseeker.JobseekerProfileManager;
 import com.theladders.solid.srp.resume.MyResumeManager;
+import com.theladders.solid.srp.resume.Resume;
 import com.theladders.solid.srp.resume.ResumeManager;
 
 public class ApplyController
@@ -64,9 +65,12 @@ public class ApplyController
                              Jobseeker jobseeker,
                              Job job)
   {
+    String whichResume = request.getParameter(HttpRequest.WHICH_RESUME);
+    String makeResumeActive = request.getParameter(HttpRequest.MAKE_RESUME_ACTIVE);
+
     try
     {
-      applier.apply(request, job, origFileName);
+      applier.apply(jobseeker, job, origFileName, whichResume, makeResumeActive);
     }
     catch (Exception e)
     {
