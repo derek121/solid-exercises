@@ -46,14 +46,13 @@ public class ApplyController
     int jobId = getJobId(request);
     if (!validateJobId(jobId))
     {
-      provideInvalidJobView(response, jobId);
+      new ResponseViewInvalidJob(jobId).computeResponse(response);
       return response;
     }
 
     return apply(request,
                  response,
                  origFileName,
-                 jobId,
                  request.getSession().getJobseeker(),
                  getJob(jobId));
   }
@@ -62,7 +61,6 @@ public class ApplyController
   private HttpResponse apply(HttpRequest request,
                              HttpResponse response,
                              String origFileName,
-                             int jobId,
                              Jobseeker jobseeker,
                              Job job)
   {
@@ -72,7 +70,7 @@ public class ApplyController
     }
     catch (Exception e)
     {
-      provideErrorView(response, Arrays.asList("We could not process your application."));
+      new ResponseViewError(Arrays.asList("We could not process your application.")).computeResponse(response);
       return response;
     }
 
@@ -102,22 +100,5 @@ public class ApplyController
     return job;
   }
 
-
-  private static void provideErrorView(HttpResponse response,
-                                       List<String> errList)
-  {
-    Result result = new Result(Result.Type.ERROR, new HashMap<String, Object>(), errList);
-    response.setResult(result);
-  }
-
-
-  private static void provideInvalidJobView(HttpResponse response,
-                                            int jobId)
-  {
-    Map<String, Object> model = new HashMap<>();
-    model.put(HttpRequest.JOB_ID, jobId);
-
-    Result result = new Result(Result.Type.INVALID_JOB, model);
-    response.setResult(result);
-  }
 }
+
