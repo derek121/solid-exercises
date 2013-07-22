@@ -49,10 +49,18 @@ public class ConfidentialResumeHandler
     JobseekerProfile jsp = jobSeekerProfileManager.getJobSeekerProfile(user);
     JobseekerConfidentialityProfile profile = jobseekerConfidentialityProfileDao.fetchJobSeekerConfidentialityProfile(jsp.getId());
     boolean isChanged = false;
+
+    /*
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.PhoneNumber) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.EmailAddress) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.MailingAddress) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.ContactInfo) || isChanged;
+    */
+
+    for (ConfidentialPhraseCategory category : ConfidentialPhraseCategory.contactInfoValues())
+    {
+      isChanged = profile.resetConfidentialFlagsForCategory(category) || isChanged;
+    }
 
     if (isChanged)
     {
