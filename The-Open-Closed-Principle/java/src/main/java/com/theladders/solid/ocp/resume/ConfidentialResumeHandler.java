@@ -22,6 +22,8 @@ public class ConfidentialResumeHandler
     JobseekerConfidentialityProfile profile = jobseekerConfidentialityProfileDao.fetchJobSeekerConfidentialityProfile(jsp.getId());
 
     boolean isChanged = false;
+
+    /*
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.Name) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.PhoneNumber) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.EmailAddress) || isChanged;
@@ -29,6 +31,12 @@ public class ConfidentialResumeHandler
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.ContactInfo) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.CompanyName) || isChanged;
     isChanged = profile.resetConfidentialFlagsForCategory(ConfidentialPhraseCategory.WorkExperience) || isChanged;
+    */
+
+    for (ConfidentialPhraseCategory category : ConfidentialPhraseCategory.values())
+    {
+      isChanged = profile.resetConfidentialFlagsForCategory(category) || isChanged;
+    }
 
     if (isChanged)
     {
