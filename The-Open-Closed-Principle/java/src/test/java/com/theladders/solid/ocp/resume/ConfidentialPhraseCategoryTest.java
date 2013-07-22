@@ -26,5 +26,19 @@ public class ConfidentialPhraseCategoryTest
     assertTrue(list.contains(ConfidentialPhraseCategory.WorkExperience));
   }
 
+
+  @Test
+  public void testContactInfoValues()
+  {
+    ConfidentialPhraseCategory[] arr = ConfidentialPhraseCategory.contactInfoValues();
+    assertEquals(4, arr.length);
+
+    List<ConfidentialPhraseCategory> list = Arrays.asList(arr);
+    assertTrue(list.contains(ConfidentialPhraseCategory.MailingAddress));
+    assertTrue(list.contains(ConfidentialPhraseCategory.PhoneNumber));
+    assertTrue(list.contains(ConfidentialPhraseCategory.EmailAddress));
+    assertTrue(list.contains(ConfidentialPhraseCategory.ContactInfo));
+  }
+
 }
 
