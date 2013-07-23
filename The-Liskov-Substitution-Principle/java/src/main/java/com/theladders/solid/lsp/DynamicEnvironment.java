@@ -1,5 +1,6 @@
 package com.theladders.solid.lsp;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,12 +24,12 @@ public class DynamicEnvironment extends Environment
     this.keyMap = propKeyMap;
   }
 
-  @Override
-  public Collection<Object> values()
+  // SOLID: renamed from the overridden values()
+  public Collection<Object> valuesWithBase()
   {
-    // TODO remove masked values
-    // TODO join local instance values
-    return base.values();
+    Collection<Object> coll = new ArrayList<>(super.values());
+    coll.addAll(base.values());
+    return coll;
   }
 
   /**
@@ -39,9 +40,8 @@ public class DynamicEnvironment extends Environment
    *          An environment key like "home"
    * @return The value for the given key after mapping (e.g. "home" might be mapped to "secureHome")
    */
-
-  @Override
-  public Object get(Object key)
+  // SOLID: renamed from the overridden get()
+  public Object getWithKeyMap(Object key)
   {
     String realKey = keyMap.get(key);
     Object value = super.get(realKey != null ? realKey : key);
@@ -52,16 +52,15 @@ public class DynamicEnvironment extends Environment
     return value;
   }
 
-  @Override
-  public Set<Map.Entry<Object, Object>> entrySet()
+  // SOLID: renamed from the overridden entrySet()
+  public Set<Map.Entry<Object, Object>> entrySetWithBase()
   {
     Set<Map.Entry<Object, Object>> entrySet = new HashSet<>(super.entrySet());
     entrySet.addAll(base.entrySet());
     return Collections.unmodifiableSet(entrySet);
   }
 
-  @Override
-  public Set<Object> keySet()
+  public Set<Object> keySetWithKeyMapAndBase()
   {
     Set<Object> keySet = new HashSet<>(super.keySet());
     keySet.addAll(keyMap.keySet());
