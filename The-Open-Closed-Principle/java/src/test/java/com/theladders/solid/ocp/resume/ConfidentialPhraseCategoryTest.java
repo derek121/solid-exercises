@@ -14,17 +14,16 @@ public class ConfidentialPhraseCategoryTest
   @Test
   public void testValues()
   {
-    ConfidentialPhraseCategory[] arr = ConfidentialPhraseCategory.values();
-    assertEquals(7, arr.length);
+    Set<ConfidentialPhraseCategory> set = ConfidentialPhraseCategory.valuesOfAllTypes();
+    assertEquals(7, set.size());
 
-    List<ConfidentialPhraseCategory> list = Arrays.asList(arr);
-    assertTrue(list.contains(ConfidentialPhraseCategory.Name));
-    assertTrue(list.contains(ConfidentialPhraseCategory.MailingAddress));
-    assertTrue(list.contains(ConfidentialPhraseCategory.PhoneNumber));
-    assertTrue(list.contains(ConfidentialPhraseCategory.EmailAddress));
-    assertTrue(list.contains(ConfidentialPhraseCategory.ContactInfo));
-    assertTrue(list.contains(ConfidentialPhraseCategory.CompanyName));
-    assertTrue(list.contains(ConfidentialPhraseCategory.WorkExperience));
+    assertTrue(set.contains(ConfidentialPhraseCategory.Name));
+    assertTrue(set.contains(ConfidentialPhraseCategory.MailingAddress));
+    assertTrue(set.contains(ConfidentialPhraseCategory.PhoneNumber));
+    assertTrue(set.contains(ConfidentialPhraseCategory.EmailAddress));
+    assertTrue(set.contains(ConfidentialPhraseCategory.ContactInfo));
+    assertTrue(set.contains(ConfidentialPhraseCategory.CompanyName));
+    assertTrue(set.contains(ConfidentialPhraseCategory.WorkExperience));
   }
 
 

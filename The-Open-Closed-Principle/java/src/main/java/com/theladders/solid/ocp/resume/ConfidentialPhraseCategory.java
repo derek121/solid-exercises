@@ -1,6 +1,7 @@
 package com.theladders.solid.ocp.resume;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +33,11 @@ public enum ConfidentialPhraseCategory
     this.type = type;
   }
 
+
+  public static Set<ConfidentialPhraseCategory> valuesOfAllTypes()
+  {
+    return EnumSet.allOf(ConfidentialPhraseCategory.class);
+  }
 
   public static Set<ConfidentialPhraseCategory> valuesOfType(Type type)
   {
