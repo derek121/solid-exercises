@@ -1,28 +1,30 @@
 package com.theladders.solid.ocp.resume;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class ConfidentialPhraseCategory2
 {
-  public static List<ConfidentialPhraseCategory2Value> values()
+  public static Set<ConfidentialPhraseCategory2Value> valuesOfAllTypes()
   {
-    return ConfidentialPhraseCategory2Value.values();
+    return ConfidentialPhraseCategory2Value.valuesOfAllTypes();
   }
 
 
-  public static List<ConfidentialPhraseCategory2Value> contactInfoValues()
+  public static Set<ConfidentialPhraseCategory2Value> valuesOfType(ConfidentialPhraseCategory2Value.Type type)
   {
-    List<ConfidentialPhraseCategory2Value> list = new ArrayList<>();
-    for (ConfidentialPhraseCategory2Value value : ConfidentialPhraseCategory2Value.values())
+    Set<ConfidentialPhraseCategory2Value> set = new HashSet<>();
+    for (ConfidentialPhraseCategory2Value value : ConfidentialPhraseCategory2Value.valuesOfAllTypes())
     {
-      if (value.type() == ConfidentialPhraseCategory2Value.Type.CONTACT)
+      if (value.type() == type)
       {
-        list.add(value);
+        set.add(value);
       }
     }
 
-    return list;
+    return set;
   }
 
 }

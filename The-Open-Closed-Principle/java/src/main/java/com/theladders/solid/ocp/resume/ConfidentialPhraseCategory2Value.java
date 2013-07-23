@@ -1,23 +1,24 @@
 package com.theladders.solid.ocp.resume;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ConfidentialPhraseCategory2Value
         implements Comparable<ConfidentialPhraseCategory2Value>
 {
 
 
-  public static List<ConfidentialPhraseCategory2Value> values()
+  public static Set<ConfidentialPhraseCategory2Value> valuesOfAllTypes()
   {
-    return Arrays.asList(
+    return new HashSet<>(Arrays.asList(
             new ConfidentialPhraseCategory2Value("Name", Type.NON_CONTACT),
             new ConfidentialPhraseCategory2Value("MailingAddress", Type.CONTACT),
             new ConfidentialPhraseCategory2Value("PhoneNumber", Type.CONTACT),
             new ConfidentialPhraseCategory2Value("EmailAddress", Type.CONTACT),
             new ConfidentialPhraseCategory2Value("ContactInfo", Type.CONTACT),
             new ConfidentialPhraseCategory2Value("CompanyName", Type.NON_CONTACT),
-            new ConfidentialPhraseCategory2Value("WorkExperience", Type.NON_CONTACT));
+            new ConfidentialPhraseCategory2Value("WorkExperience", Type.NON_CONTACT)));
   }
 
 
