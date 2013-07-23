@@ -1,7 +1,9 @@
 package com.theladders.solid.ocp.resume;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public enum ConfidentialPhraseCategory
 {
@@ -31,18 +33,19 @@ public enum ConfidentialPhraseCategory
   }
 
 
-  public static ConfidentialPhraseCategory[] contactInfoValues()
+  public static Set<ConfidentialPhraseCategory> contactInfoValues()
   {
-    List<ConfidentialPhraseCategory> list = new ArrayList<>();
+    Set<ConfidentialPhraseCategory> set = new HashSet<>();
+
     for (ConfidentialPhraseCategory category : ConfidentialPhraseCategory.values())
     {
       if (category.type == Type.CONTACT)
       {
-        list.add(category);
+        set.add(category);
       }
     }
 
-    return list.toArray(new ConfidentialPhraseCategory[0]);
+    return set;
   }
 
 }

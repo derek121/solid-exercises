@@ -2,6 +2,7 @@ package com.theladders.solid.ocp.resume;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -30,14 +31,14 @@ public class ConfidentialPhraseCategoryTest
   @Test
   public void testContactInfoValues()
   {
-    ConfidentialPhraseCategory[] arr = ConfidentialPhraseCategory.contactInfoValues();
-    assertEquals(4, arr.length);
+    Set<ConfidentialPhraseCategory> set = ConfidentialPhraseCategory.contactInfoValues();
 
-    List<ConfidentialPhraseCategory> list = Arrays.asList(arr);
-    assertTrue(list.contains(ConfidentialPhraseCategory.MailingAddress));
-    assertTrue(list.contains(ConfidentialPhraseCategory.PhoneNumber));
-    assertTrue(list.contains(ConfidentialPhraseCategory.EmailAddress));
-    assertTrue(list.contains(ConfidentialPhraseCategory.ContactInfo));
+    assertEquals(4, set.size());
+
+    assertTrue(set.contains(ConfidentialPhraseCategory.MailingAddress));
+    assertTrue(set.contains(ConfidentialPhraseCategory.PhoneNumber));
+    assertTrue(set.contains(ConfidentialPhraseCategory.EmailAddress));
+    assertTrue(set.contains(ConfidentialPhraseCategory.ContactInfo));
   }
 
 }
