@@ -15,7 +15,7 @@ public enum ConfidentialPhraseCategory
   CompanyName(   81, Type.NON_CONTACT),
   WorkExperience(82, Type.NON_CONTACT);
 
-  private enum Type
+  public enum Type
   {
     CONTACT, NON_CONTACT
   }
@@ -33,13 +33,13 @@ public enum ConfidentialPhraseCategory
   }
 
 
-  public static Set<ConfidentialPhraseCategory> contactInfoValues()
+  public static Set<ConfidentialPhraseCategory> valuesOfType(Type type)
   {
     Set<ConfidentialPhraseCategory> set = new HashSet<>();
 
     for (ConfidentialPhraseCategory category : ConfidentialPhraseCategory.values())
     {
-      if (category.type == Type.CONTACT)
+      if (category.type == type)
       {
         set.add(category);
       }

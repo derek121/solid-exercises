@@ -31,7 +31,8 @@ public class ConfidentialPhraseCategoryTest
   @Test
   public void testContactInfoValues()
   {
-    Set<ConfidentialPhraseCategory> set = ConfidentialPhraseCategory.contactInfoValues();
+    Set<ConfidentialPhraseCategory> set =
+            ConfidentialPhraseCategory.valuesOfType(ConfidentialPhraseCategory.Type.CONTACT);
 
     assertEquals(4, set.size());
 
