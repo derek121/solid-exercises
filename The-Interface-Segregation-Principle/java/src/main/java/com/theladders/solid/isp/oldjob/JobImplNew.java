@@ -12,7 +12,7 @@ import com.theladders.solid.isp.oldjob.stubs.PositionLevel;
 import com.theladders.solid.isp.oldjob.stubs.Region;
 import com.theladders.solid.isp.oldjob.stubs.Sector;
 
-public class JobNew
+public class JobImplNew
   implements JobGeneralDetails, JobStatus, JobPositionDetails
 {
   // JobGeneralDetails
