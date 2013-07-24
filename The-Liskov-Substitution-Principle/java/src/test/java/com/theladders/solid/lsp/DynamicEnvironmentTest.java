@@ -37,6 +37,7 @@ public class DynamicEnvironmentTest
 
     Map<Object, Object> map = new DynamicEnvironment(base, keyMap);
 
+    // Despite the keyMap, get() should return the val we put in
     String key = "foo", val = "bar";
     map.put(key, val);
     assertEquals(val, map.get(key));
@@ -55,6 +56,7 @@ public class DynamicEnvironmentTest
     String val = "bar";
     map.put("foo2", val);
 
+    // Because of the keyMap, get() with "foo" should return the val put() with "foo2"
     assertEquals(val, map.getWithKeyMap("foo"));
     assertNull(map.get("foo"));
   }
@@ -88,6 +90,7 @@ public class DynamicEnvironmentTest
     String key = "foo", val = "bar";
     map.put(key, val);
 
+    // values() should only return what we put(), not the base
     Collection<Object> values = map.values();
     assertEquals(1, values.size());
     assertEquals(val, values.iterator().next());
@@ -105,6 +108,7 @@ public class DynamicEnvironmentTest
     String key = "foo", val = "bar";
     map.put(key, val);
 
+    // valuesWithBase() reflects put() as well as the base
     Collection<Object> values = map.valuesWithBase();
     assertEquals(2, values.size());
     assertTrue(values.contains("bar"));
@@ -142,6 +146,7 @@ public class DynamicEnvironmentTest
     String key = "foo", val = "bar";
     map.put(key, val);
 
+    // entrySet() should only reflect what we put()
     Set<Map.Entry<Object, Object>> entries = map.entrySet();
     assertEquals(1, entries.size());
     Map.Entry entry = entries.iterator().next();
@@ -161,6 +166,7 @@ public class DynamicEnvironmentTest
     String key = "foo", val = "bar";
     map.put(key, val);
 
+    // entrySetWithBase() should reflect put() as well as base
     Set<Map.Entry<Object, Object>> entries = map.entrySetWithBase();
     assertEquals(2, entries.size());
     Map.Entry entry1 = entries.iterator().next();
@@ -201,6 +207,7 @@ public class DynamicEnvironmentTest
     String key = "foo", val = "bar";
     map.put(key, val);
 
+    // keySet() should reflect the put(), not base or keyMap
     Set<Object> keySet = map.keySet();
     assertEquals(1, keySet.size());
     Object o = keySet.iterator().next();
@@ -223,6 +230,7 @@ public class DynamicEnvironmentTest
 
     map.put("extra", "z");
 
+    // keySetWithKeyMapAndBase() should reflect put() as well as base and keyMap's key
     Set<Object> keySet = map.keySetWithKeyMapAndBase();
     assertEquals(3, keySet.size());
     assertTrue(keySet.contains("x"));
