@@ -6,13 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.theladders.solid.dip.refactor.ContentNode;
-import com.theladders.solid.dip.refactor.ContentUtils;
-import com.theladders.solid.dip.refactor.RepositoryManager;
-import com.theladders.solid.dip.refactor.SuggestedArticle;
-import com.theladders.solid.dip.refactor.SuggestedArticleDao;
-import com.theladders.solid.dip.refactor.SuggestedArticleExample;
-
 public class SubscriberArticleManagerImpl implements SubscriberArticleManager
 {
   private static final String              IMAGE_PREFIX       = "http://somecdnprodiver.com/static/images/careerAdvice/";
