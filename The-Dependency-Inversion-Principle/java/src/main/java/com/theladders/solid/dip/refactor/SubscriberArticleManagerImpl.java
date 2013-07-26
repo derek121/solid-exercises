@@ -25,8 +25,9 @@ public class SubscriberArticleManagerImpl implements SubscriberArticleManager
   }
 
 
-  private SuggestedArticleDao suggestedArticleDao;
-  private RepositoryManager                repositoryManager;
+  private SuggestedArticleDao   suggestedArticleDao;
+  private RepositoryManager repositoryManager;
+
 
   public SubscriberArticleManagerImpl(SuggestedArticleDao suggestedArticleDao,
                                       RepositoryManager repositoryManager)
@@ -34,6 +35,7 @@ public class SubscriberArticleManagerImpl implements SubscriberArticleManager
     this.suggestedArticleDao = suggestedArticleDao;
     this.repositoryManager = repositoryManager;
   }
+
 
   public List<SuggestedArticle> getArticlesbySubscriber(Integer subscriberId)
   {
@@ -51,6 +53,7 @@ public class SubscriberArticleManagerImpl implements SubscriberArticleManager
 
     return dbSuggestions;
   }
+
 
   public int addSuggestedArticle(SuggestedArticle suggestedArticle)
   {

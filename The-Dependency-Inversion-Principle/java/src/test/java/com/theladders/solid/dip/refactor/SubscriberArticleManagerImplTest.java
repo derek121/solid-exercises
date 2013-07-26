@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,8 +21,8 @@ public class SubscriberArticleManagerImplTest
   @Before
   public void setup()
   {
-    suggestedArticleDao = new SuggestedArticleDao();
-    RepositoryManager repositoryManager = new RepositoryManager();
+    suggestedArticleDao = new SuggestedArticleDaoImpl();
+    RepositoryManager repositoryManager = new RepositoryManagerImpl();
     subscriberArticleManager = new SubscriberArticleManagerImpl(suggestedArticleDao, repositoryManager);
   }
 
@@ -45,7 +44,7 @@ public class SubscriberArticleManagerImplTest
     assertTrue(updateTime > 0 && updateTime <= now);
 
     // Check that it was added to suggestedArticleDao
-    assertTrue(suggestedArticleDao.wasAdded(suggestedArticle));
+    assertTrue(((SuggestedArticleDaoImpl)suggestedArticleDao).wasAdded(suggestedArticle));
   }
 
   @Test
@@ -61,7 +60,7 @@ public class SubscriberArticleManagerImplTest
 
 //  List<SuggestedArticle> criteria = suggestedArticleDao.
 
-    SuggestedArticleExample example = suggestedArticleDao.getSelectedCriteria().get(0);
+    SuggestedArticleExample example = ((SuggestedArticleDaoImpl)suggestedArticleDao).getSelectedCriteria().get(0);
     List<Criteria> oredCriteria = example.getOredCriteria();
     assertEquals(1, oredCriteria.size());
 
