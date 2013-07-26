@@ -3,16 +3,16 @@ package com.theladders.solid.dip.refactor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuggestedArticleExampleNew
+public class SuggestedArticleExample
 {
   protected String orderByClause;
 
   protected boolean distinct;
 
-  protected List<CriteriaNew> oredCriteria;
+  protected List<Criteria> oredCriteria;
 
 
-  public SuggestedArticleExampleNew()
+  public SuggestedArticleExample()
   {
     oredCriteria = new ArrayList<>();
   }
@@ -42,29 +42,29 @@ public class SuggestedArticleExampleNew
   }
 
 
-  public List<CriteriaNew> getOredCriteria()
+  public List<Criteria> getOredCriteria()
   {
     return oredCriteria;
   }
 
 
-  public void or(CriteriaNew criteria)
+  public void or(Criteria criteria)
   {
     oredCriteria.add(criteria);
   }
 
 
-  public CriteriaNew or()
+  public Criteria or()
   {
-    CriteriaNew criteria = createCriteriaInternal();
+    Criteria criteria = createCriteriaInternal();
     oredCriteria.add(criteria);
     return criteria;
   }
 
 
-  public CriteriaNew createCriteria()
+  public Criteria createCriteria()
   {
-    CriteriaNew criteria = createCriteriaInternal();
+    Criteria criteria = createCriteriaInternal();
     if (oredCriteria.size() == 0)
     {
       oredCriteria.add(criteria);
@@ -73,10 +73,10 @@ public class SuggestedArticleExampleNew
   }
 
 
-  protected CriteriaNew createCriteriaInternal()
+  protected Criteria createCriteriaInternal()
   {
     // TODO: inject it?
-    CriteriaNew criteria = new GeneratedCriteriaNew();
+    Criteria criteria = new GeneratedCriteria();
     return criteria;
   }
 }

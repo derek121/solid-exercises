@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GeneratedCriteriaNew
-        implements CriteriaNew
+public class GeneratedCriteria
+        implements Criteria
 {
   protected List<Map<String, Object>> criteriaWithSingleValue;
   protected List<Map<String, Object>> criteriaWithListValue;
 
 
-  public GeneratedCriteriaNew()
+  public GeneratedCriteria()
   {
     criteriaWithSingleValue = new ArrayList<>();
     criteriaWithListValue = new ArrayList<>();
@@ -20,7 +20,7 @@ public class GeneratedCriteriaNew
 
 
   @Override
-  public GeneratedCriteriaNew andSubscriberIdEqualTo(Integer value)
+  public GeneratedCriteria andSubscriberIdEqualTo(Integer value)
   {
     addCriterion("subscriber_id =", value, "subscriberId");
     return this;
@@ -28,7 +28,7 @@ public class GeneratedCriteriaNew
 
 
   @Override
-  public CriteriaNew andSuggestedArticleSourceIdEqualTo(Integer value)
+  public Criteria andSuggestedArticleSourceIdEqualTo(Integer value)
   {
     addCriterion("suggested_article_source_id =", value, "suggestedArticleSourceId");
     return this;
@@ -36,7 +36,7 @@ public class GeneratedCriteriaNew
 
 
   @Override
-  public CriteriaNew andSuggestedArticleStatusIdIn(List<Integer> values)
+  public Criteria andSuggestedArticleStatusIdIn(List<Integer> values)
   {
     addCriterion("suggested_article_status_id in", values, "suggestedArticleStatusId");
     return this;
