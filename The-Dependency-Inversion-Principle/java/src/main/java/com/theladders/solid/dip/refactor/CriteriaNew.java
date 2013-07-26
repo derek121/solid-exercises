@@ -1,4 +1,4 @@
-package com.theladders.solid.dip;
+package com.theladders.solid.dip.refactor;
 
 import java.util.List;
 import java.util.Map;
